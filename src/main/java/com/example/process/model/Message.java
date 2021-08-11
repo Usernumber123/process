@@ -17,9 +17,11 @@ import java.util.HashMap;
 public class Message {
     String author;
     String message;
+    Integer age;
     String dateAndTime;
     public Message(Message message) {
         this.author=message.getAuthor();
+        this.age=message.getAge();
         this.message=message.getMessage();
         this.dateAndTime = message.getDateAndTime();
     }

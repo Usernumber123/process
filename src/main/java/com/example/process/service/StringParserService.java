@@ -27,12 +27,13 @@ public class StringParserService {
         forbiddenWordsService.updateForbiddenWords();
 
         MessageCensured messageCensured=new MessageCensured(message);
-        String[] subStr;
+        String[] wordsOfMsg;
         String delimeter = " ";
-        subStr = message.getMessage().split(delimeter);
-        for (String s : subStr) {
-            if (Word.forbiddenWords.containsKey(s)) {
-                messageCensured.setCensoredMessage( messageCensured.getCensoredMessage().replace(s, censor(s)));
+        wordsOfMsg = message.getMessage().split(delimeter);
+        for (String word : wordsOfMsg) {
+            if (Word.forbiddenWords.containsKey(word)) {
+                if(Word.forbiddenWords.get(word)>=(message.getAge()))
+                messageCensured.setCensoredMessage( messageCensured.getCensoredMessage().replace(word, censor(word)));
             }
         }
 

@@ -14,10 +14,18 @@ import java.util.List;
 @Slf4j
 public class ForbiddenWordsService {
     private final WordsRepository wordsRepository;
-    public void stringParseWord (String word){
-        Word word1=jsonWordConverter(word);
-        wordsRepository.save(word1);
-        Word.forbiddenWords.put(word1.getForbiddenWord(),word1.getAge());
+
+    public void stringParseWord(String word) {
+        updateForbiddenWords();
+        Word word1 = jsonWordConverter(word);
+        if (!Word.forbiddenWords.containsKey(word1.getForbiddenWord())) {
+            wordsRepository.save(word1);
+            Word.forbiddenWords.put(word1.getForbiddenWord(), word1.getAge());
+        } else {
+            wordsRepository.deleteWordByForbiddenWord(word1.getForbiddenWord());
+            wordsRepository.save(word1);
+            Word.forbiddenWords.replace(word1.getForbiddenWord(), word1.getAge());
+        }
     }
     public void  updateForbiddenWords(){
         try {
