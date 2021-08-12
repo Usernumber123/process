@@ -1,6 +1,5 @@
 package com.example.process.service;
 
-import com.example.process.entity.Word;
 import com.example.process.model.Message;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -18,7 +17,7 @@ public class ConsumerService {
     @KafkaListener(id = "one", topics = "msg1")
     public void msgListener(ConsumerRecord<String, Object> record) {
         Message message= stringParserService.stringParse(record.value().toString());
-        producerService.sendMessageToUI(message);
+        producerService.sendMessageForStore(message);
     }
 
     @KafkaListener(id = "one1", topics = "forbiddenWords")

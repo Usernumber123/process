@@ -38,7 +38,6 @@ public class ForbiddenWordsService {
         }
     }
     public Word jsonWordConverter(String word){
-        Word word1=new Gson().fromJson(word, Word.class);
-        return word1;
+        return new Gson().fromJson(word, Word.class);
     }
 }
