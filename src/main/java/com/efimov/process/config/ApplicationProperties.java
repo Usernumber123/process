@@ -1,4 +1,4 @@
-package com.example.process.config;
+package com.efimov.process.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

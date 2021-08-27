@@ -13,7 +13,12 @@
             <column name="forbidden_word" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="age" type="INT"/>
+            <column name="age" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chat" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <rollback>
             <dropTable tableName="words"/>
