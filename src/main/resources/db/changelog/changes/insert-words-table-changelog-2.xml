@@ -8,8 +8,8 @@
     <changeSet author="admin" id="2">
         <insert tableName="words">
             <column name="forbidden_word" value="Bitch"/>
-            <column name="age" value="12" />
-            <column name="chat" value="*" />
+            <column name="age" value="12"/>
+            <column name="chat" value="*"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

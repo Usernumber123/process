@@ -19,12 +19,12 @@ public class Word {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "forbiddenWord")
-    private String  forbiddenWord;
+    private String forbiddenWord;
     @Column(name = "age")
     private Integer age;
     @Column(name = "chat")
     private String chat;
     @Transient
-    public static HashMap<String,String> forbiddenWords=new HashMap<>();
+    public static HashMap<String, String> forbiddenWords = new HashMap<>();
 }
 

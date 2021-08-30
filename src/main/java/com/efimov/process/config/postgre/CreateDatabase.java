@@ -29,7 +29,7 @@ public class CreateDatabase {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         createDatabase(dbName);
     }
 
@@ -38,18 +38,17 @@ public class CreateDatabase {
             Connection connection = DriverManager.getConnection(databaseUrl, username, password);
             Statement statement = connection.createStatement();
             try {
-                Connection connection2 = DriverManager.getConnection(databaseUrl+databaseName, username, password);
+                Connection connection2 = DriverManager.getConnection(databaseUrl + databaseName, username, password);
                 Statement statement2 = connection2.createStatement();
                 statement2.executeUpdate("UPDATE DATABASECHANGELOGLOCK SET LOCKED=false , LOCKGRANTED=null, LOCKEDBY=null where ID=1");
-            }
-            catch (SQLException e){
+            } catch (SQLException e) {
                 log.info("DB does not exist");
             }
-            statement.executeUpdate("CREATE DATABASE " + databaseName );
+            statement.executeUpdate("CREATE DATABASE " + databaseName);
             log.warn("Database {} created successfully", databaseName);
         } catch (SQLException e) {
             if (DATABASE_IS_ALREADY_EXIST.equals(e.getSQLState())) {
-               log.info("Database {} is already exist", databaseName);
+                log.info("Database {} is already exist", databaseName);
             } else {
                 log.error("Unable to create {} database", databaseName);
             }

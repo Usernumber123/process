@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class ProducerServiceImpl implements ProducerService {
     public static final String MESSAGE_FOR_STORE_TOPIC = "MessageForStoreTopic";
     private final KafkaTemplate<String, Message> kafkaTemplate;
+
     @Override
     public void sendMessageForStore(Message msg) {
         kafkaTemplate.send(MESSAGE_FOR_STORE_TOPIC, msg);

@@ -16,30 +16,31 @@ import java.util.Arrays;
 public class StringParserServiceImpl implements StringParserService {
     private final ForbiddenWordsStoreServiceImpl forbiddenWordsService;
 
-    private Message jsonMessageConverter(String messageReceived){
+    private Message jsonMessageConverter(String messageReceived) {
         return new Gson().fromJson(messageReceived, Message.class);
     }
+
     @Override
-    public Message stringParse (String messageReceived){
-        Message message= jsonMessageConverter(messageReceived);
+    public Message stringParse(String messageReceived) {
+        Message message = jsonMessageConverter(messageReceived);
         message.setCensoredMessage(message.getMessage());
-        forbiddenWordsService.updateForbiddenWords();
+        forbiddenWordsService.updateCashForbiddenWords();
 
         String[] wordsOfMsg;
         String delimeter = " ";
         wordsOfMsg = message.getMessage().split(delimeter);
         for (String word : wordsOfMsg) {
             if (Word.forbiddenWords.containsKey(word)) {
-                if(Word.forbiddenWords.get(word).equals(message.getChat())||Word.forbiddenWords.get(word).equals("*"))
-                message.setCensoredMessage( message.getMessage().replace(word, censor(word)));
+                if (Word.forbiddenWords.get(word).equals(message.getChat()) || Word.forbiddenWords.get(word).equals("*"))
+                    message.setCensoredMessage(message.getCensoredMessage().replace(word, censor(word)));
             }
         }
 
 
-      return  message;
+        return message;
     }
 
-    private String censor(String string){
+    private String censor(String string) {
         int n = string.length();
         char[] chars = new char[n];
         Arrays.fill(chars, '*');

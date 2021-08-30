@@ -11,6 +11,10 @@ import java.util.List;
 @Repository
 public interface WordsRepository extends JpaRepository<Word, Long> {
     List<Word> findAll();
+
     @Transactional
-   void deleteWordByForbiddenWord(String ForbiddenWord);
+    void deleteWordByForbiddenWord(String ForbiddenWord);
+
+    @Transactional
+    void deleteWordByForbiddenWordAndAgeAndChat(String ForbiddenWord, Integer Age, String chat);
 }

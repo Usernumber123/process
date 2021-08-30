@@ -10,16 +10,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ForbiddenWordsStoreServiceImpl implements ForbiddenWordsStoreService {
     private final WordsRepository wordsRepository;
+
     @Override
-    public void deleteForbiddenWord(String stringWord){
+    public void deleteForbiddenWord(String stringWord) {
         Word word = jsonWordConverter(stringWord);
-        wordsRepository.delete(word);
+        wordsRepository.deleteWordByForbiddenWordAndAgeAndChat(word.getForbiddenWord(), word.getAge(), word.getChat());
     }
+
     @Override
     public void saveForbiddenWord(String stringWord) {
         Word word = jsonWordConverter(stringWord);
@@ -32,18 +35,19 @@ public class ForbiddenWordsStoreServiceImpl implements ForbiddenWordsStoreServic
             Word.forbiddenWords.replace(word.getForbiddenWord(), word.getChat());
         }
     }
+
     @Override
-    public void  updateForbiddenWords(){
+    public void updateCashForbiddenWords() {
         try {
             List<Word> words = new ArrayList<>(wordsRepository.findAll());
-            for(Word word : words)
-                Word.forbiddenWords.put(word.getForbiddenWord(),word.getChat());
-        }
-        catch (Exception e){
+            for (Word word : words)
+                Word.forbiddenWords.put(word.getForbiddenWord(), word.getChat());
+        } catch (Exception e) {
             log.warn(e.getMessage());
         }
     }
-    private Word jsonWordConverter(String word){
+
+    private Word jsonWordConverter(String word) {
         return new Gson().fromJson(word, Word.class);
     }
 }
