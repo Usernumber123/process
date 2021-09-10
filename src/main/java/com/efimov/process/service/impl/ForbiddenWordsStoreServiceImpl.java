@@ -20,7 +20,7 @@ public class ForbiddenWordsStoreServiceImpl implements ForbiddenWordsStoreServic
     @Override
     public void deleteForbiddenWord(String stringWord) {
         Word word = jsonWordConverter(stringWord);
-        wordsRepository.deleteWordByForbiddenWordAndAgeAndChat(word.getForbiddenWord(), word.getAge(), word.getChat());
+        wordsRepository.deleteWordByForbiddenWordAndChat(word.getForbiddenWord(), word.getChat());
     }
 
     @Override

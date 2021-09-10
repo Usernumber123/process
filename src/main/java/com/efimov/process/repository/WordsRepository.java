@@ -16,5 +16,5 @@ public interface WordsRepository extends JpaRepository<Word, Long> {
     void deleteWordByForbiddenWord(String ForbiddenWord);
 
     @Transactional
-    void deleteWordByForbiddenWordAndAgeAndChat(String ForbiddenWord, Integer Age, String chat);
+    void deleteWordByForbiddenWordAndChat(String ForbiddenWord, String chat);
 }
