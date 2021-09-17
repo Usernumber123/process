@@ -21,6 +21,7 @@ public class ForbiddenWordsStoreServiceImpl implements ForbiddenWordsStoreServic
     public void deleteForbiddenWord(String stringWord) {
         Word word = jsonWordConverter(stringWord);
         wordsRepository.deleteWordByForbiddenWordAndChat(word.getForbiddenWord(), word.getChat());
+        updateCashForbiddenWords();
     }
 
     @Override
@@ -30,9 +31,9 @@ public class ForbiddenWordsStoreServiceImpl implements ForbiddenWordsStoreServic
             wordsRepository.save(word);
             Word.forbiddenWords.put(word.getForbiddenWord(), word.getChat());
         } else {
-            wordsRepository.deleteWordByForbiddenWord(word.getForbiddenWord());
-            wordsRepository.save(word);
-            Word.forbiddenWords.replace(word.getForbiddenWord(), word.getChat());
+            wordsRepository.deleteWordByForbiddenWord(word.getForbiddenWord());//
+            wordsRepository.save(word);//
+            Word.forbiddenWords.replace(word.getForbiddenWord(), word.getChat());//
         }
     }
 
@@ -40,6 +41,7 @@ public class ForbiddenWordsStoreServiceImpl implements ForbiddenWordsStoreServic
     public void updateCashForbiddenWords() {
         try {
             List<Word> words = new ArrayList<>(wordsRepository.findAll());
+            Word.forbiddenWords.clear();
             for (Word word : words)
                 Word.forbiddenWords.put(word.getForbiddenWord(), word.getChat());
         } catch (Exception e) {
